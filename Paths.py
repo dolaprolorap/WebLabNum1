@@ -1,0 +1,1 @@
+image = "C:\\Users\\Shlik\\Рабочий стол\\integr.PNG"
