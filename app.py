@@ -13,7 +13,7 @@ def but(root: tk.Tk):
     
     root.update()
     
-    setImage(f"{STATIC_PATH}\\{globals.CURRENT_IMAGE}")
+    setImage(f"{STATIC_PATH}/{globals.CURRENT_IMAGE}")
     
     if not globals.SERVER_RUNNING:
         

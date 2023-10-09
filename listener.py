@@ -1,8 +1,7 @@
 import socket
-import time
 import globals
 
-from config import STATIC_PATH
+from config import PORT
 
 
 def start_listener():
@@ -10,16 +9,14 @@ def start_listener():
     globals.SERVER_RUNNING = True
         
     sock = socket.socket()
-    sock.bind(('', 5001))
+    sock.bind(('', int(PORT)))
 
     while True:
         sock.listen(1)
-        conn, addr = sock.accept()
+        conn = sock.accept()
         
-        time.sleep(2)
-        
-        data = conn.recv(1024)
-        text = data.decode()
-        
-        globals.CURRENT_IMAGE = "show2.jpg"
+        if globals.CURRENT_IMAGE == "show.jpg":
+            globals.CURRENT_IMAGE = "show2.jpg"
+        else:
+            globals.CURRENT_IMAGE = "show.jpg"
         
