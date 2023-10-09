@@ -4,8 +4,7 @@ from PIL import Image, ImageTk
 import globals
 from config import STATIC_PATH, WINDOW_HEIGHT, WINDOW_WIDTH
 
-
-def getImageViewer(root: tk.Frame, img_changed: bool = None):
+def getImageViewer(root: tk.Frame):
     imageViewer = tk.Frame(root)
         
     content = getContent(imageViewer)
@@ -33,33 +32,13 @@ def getContent(frame : tk.Frame):
     
     test = ImageTk.PhotoImage(img_rs)
 
-    lb = tk.Label(content, image=test)
-    lb.image = test
-    lb.pack()
+    globals.IMAGE_PANEL = tk.Label(content, image=test)
+    globals.IMAGE_PANEL.image = test
+    globals.IMAGE_PANEL.pack()
 
     return content
 
-def changeImage(frame : tk.Frame):
-    content = tk.Frame(frame)
-
-    img = Image.open(f"{STATIC_PATH}/show2.jpg")
-
-    height, width = img.height, img.width
-    
-    while (height > int(WINDOW_HEIGHT) and width > int(WINDOW_WIDTH)):
-        height, width = int(height * 0.7), int(width * 0.7)
-        
-        img_rs = img.resize((height, width))
-        
-    while (height < int(WINDOW_HEIGHT) and width < int(WINDOW_WIDTH)):
-        height, width = int(height * 1.3), int(width * 1.3)
-        
-        img_rs = img.resize((height, width))
-    
-    test = ImageTk.PhotoImage(img_rs)
-
-    lb = tk.Label(content, image=test)
-    lb.image = test
-    lb.pack(expand=False)
-
-    return content
+def setImage(imgPath : str):
+    img = ImageTk.PhotoImage(Image.open(imgPath))
+    globals.IMAGE_PANEL.configure(image=img)
+    globals.IMAGE_PANEL.image = img

@@ -13,3 +13,6 @@ def init():
     
     global SERVER_RUNNING
     SERVER_RUNNING = False
+
+    global IMAGE_PANEL
+    IMAGE_PANEL = None

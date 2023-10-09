@@ -1,12 +1,11 @@
 import tkinter as tk
 import threading
 
-
 from config import WINDOW_HEIGHT, WINDOW_WIDTH, STATIC_PATH
 from listener import start_listener
 from src.ui.ChangeImagePage import getChangeImagePage
 from src.ui.ConnectPage import getConnectPage
-from src.ui.ImageViewerPage import changeImage, getImageViewer
+from src.ui.ImageViewerPage import setImage, getImageViewer
 import globals
 
 def but(root: tk.Tk):
@@ -15,6 +14,7 @@ def but(root: tk.Tk):
     root.update()
     
     print(globals.CURRENT_IMAGE)
+    setImage(f"{STATIC_PATH}\\{globals.CURRENT_IMAGE}")
     
     if not globals.SERVER_RUNNING:
         
