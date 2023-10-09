@@ -8,11 +8,11 @@ def init():
     global PAGES
     PAGES = dict()
     
-    global ROOT_PAGE
-    ROOT_PAGE = None
-    
     global SERVER_RUNNING
     SERVER_RUNNING = False
 
     global IMAGE_PANEL
     IMAGE_PANEL = None
+    
+    global UPLOADED_FILE
+    UPLOADED_FILE = None

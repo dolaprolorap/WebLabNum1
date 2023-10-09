@@ -24,8 +24,6 @@ globals.init()
 
 root = tk.Tk()
 
-globals.ROOT_PAGE = root
-
 root.title('image_changer')
 root.geometry(f"{WINDOW_HEIGHT}x{WINDOW_WIDTH}")
 
