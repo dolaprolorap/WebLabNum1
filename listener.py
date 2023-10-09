@@ -15,8 +15,6 @@ def start_listener():
     while True:
         sock.listen(1)
         conn, addr = sock.accept()
-
-        print('connected:', addr)
         
         time.sleep(2)
         
