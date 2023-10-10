@@ -1,7 +1,8 @@
 import socket
 import globals
 
-from config import PORT
+from src.ui.ImageViewerPage import setImage
+from config import PORT, STATIC_PATH
 
 
 def start_listener():
@@ -14,8 +15,8 @@ def start_listener():
     while True:
         sock.listen(1)
         conn, addr = sock.accept()
-        
-        data = conn.recv(2**40)
+
+        data = conn.recv(2**4)
 
         print(data.decode())
         
@@ -23,6 +24,8 @@ def start_listener():
             globals.CURRENT_IMAGE = "show2.jpg"
         else:
             globals.CURRENT_IMAGE = "show.jpg"
+
+        setImage(f"{STATIC_PATH}/{globals.CURRENT_IMAGE}")
         
         
 # import asyncio
