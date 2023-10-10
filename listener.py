@@ -1,4 +1,6 @@
 import socket
+import time
+from src.api.api import bytes_to_img
 import globals
 
 from src.ui.ImageViewerPage import setImage
@@ -9,24 +11,40 @@ def start_listener():
     
     globals.SERVER_RUNNING = True
         
-    sock = socket.socket()
-    sock.bind(('', int(PORT)))
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.bind(('', int(PORT)))
 
     while True:
-        sock.listen(1)
-        conn, addr = sock.accept()
+        s.listen(1)
 
-        data = conn.recv(2**4)
-
-        print(data.decode())
+        conn, addr = s.accept()
         
-        if globals.CURRENT_IMAGE == "show.jpg":
-            globals.CURRENT_IMAGE = "show2.jpg"
-        else:
-            globals.CURRENT_IMAGE = "show.jpg"
+        with conn:
 
-        setImage(f"{STATIC_PATH}/{globals.CURRENT_IMAGE}")
+            data = conn.recv(2048)
+            request = data.decode('utf-8')
+
+            headers, body = request.split('\r\n\r\n', 1)
+            
+            print(headers)
+            print("Body: " + body)
+            
+            if body == "no_img":
+                if globals.CURRENT_IMAGE == "show.jpg":
+                    globals.CURRENT_IMAGE = "show2.jpg"
+                else:
+                    globals.CURRENT_IMAGE = "show.jpg"
+            
+            ret = bytes_to_img(body)
+            
+            if ret != None:
+                print(ret)
+                print(body)
+
+            setImage(f"{STATIC_PATH}/{globals.CURRENT_IMAGE}")
         
+
+
         
 # import asyncio
 # import websockets

@@ -4,7 +4,7 @@ import tkinter as tk
 import httpx
 import numpy as np
 
-from config import PORT
+from config import PORT, STATIC_PATH
 
 def img_to_bytes(path: str):
 
@@ -17,27 +17,49 @@ def img_to_bytes(path: str):
     
     return file
 
+
+def bytes_to_img(file: str):
     
-def send(HOST: str, data: str = ""):
+    try:
+        
+        byte_arr = list(map(lambda x: int(x), file.split(",")))
+        some_bytes = bytearray(byte_arr)
+
+        immutable_bytes = bytes(some_bytes)
+
+        with open(f"{STATIC_PATH}/show.jpg", "wb") as f:
+            f.write(immutable_bytes)
+        
+        f.close()
+        
+    except Exception as e:
+        return e
+    
+    
+    
+def send(HOST: str, path: str = ""):
+    
+    data = None
     
     try:
         if data != "":
             
             try:
-                os.stat(data)
-                data = img_to_bytes(data)
+                os.stat(path)
+                data = img_to_bytes(path)
                 
             except:
-                data = ""
+                data = "no_img"
         
-        req = httpx.post(f"http://{HOST}:{PORT}", data="mememme")
+        req = httpx.post(f"http://{HOST}:{PORT}", data=data)
 
         if req.status_code == 200:
             return {"status": "success", "detail": "change success"}
         
         return {"status": "fail", "detail": req.json()}
     
-    except:
+    except Exception as e:
+        print(e)
         return {"status": "fail", "detail": "incorrect host"}
     
 
