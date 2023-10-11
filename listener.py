@@ -16,6 +16,14 @@ def start_listener():
     while True:
         sock.listen(1)
         conn, addr = sock.accept()
+
+        a = conn.recv(2**30)
+        while a:
+            print(a)
+            a = conn.recv(2**30)
+
+        conn.close()
+
         
         images = os.listdir(STATIC_PATH)
         
