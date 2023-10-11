@@ -25,14 +25,12 @@ def getContent(frame : tk.Frame):
     while (height > int(WINDOW_HEIGHT) and width > int(WINDOW_WIDTH)):
         height, width = int(height * 0.7), int(width * 0.7)
         
-        img_rs = img.resize((width, height))
-        
     while (height < int(WINDOW_HEIGHT) and width < int(WINDOW_WIDTH)):
         height, width = int(height * 1.3), int(width * 1.3)
         
-        img_rs = img.resize((width, height))
+    img = img.resize((width, height))
     
-    test = ImageTk.PhotoImage(img_rs)
+    test = ImageTk.PhotoImage(img)
 
     globals.IMAGE_PANEL = tk.Label(content, image=test)
     globals.IMAGE_PANEL.image = test
@@ -50,14 +48,12 @@ def setImage(imgPath: str):
     while (height > int(WINDOW_HEIGHT) and width > int(WINDOW_WIDTH)):
         height, width = int(height * 0.7), int(width * 0.7)
         
-        img_rs = img.resize((width, height))
-        
     while (height < int(WINDOW_HEIGHT) and width < int(WINDOW_WIDTH)):
         height, width = int(height * 1.3), int(width * 1.3)
         
-        img_rs = img.resize((width, height))
+    img = img.resize((width, height))
         
-    img = ImageTk.PhotoImage(img_rs)
+    img = ImageTk.PhotoImage(img)
     
     globals.IMAGE_PANEL.configure(image=img)
     globals.IMAGE_PANEL.image = img
