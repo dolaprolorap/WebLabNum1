@@ -22,12 +22,12 @@ def getContent(frame : tk.Frame):
 
     height, width = img.height, img.width
     
-    while (height > int(WINDOW_HEIGHT) or width > int(WINDOW_WIDTH)):
+    while (height > int(WINDOW_HEIGHT) and width > int(WINDOW_WIDTH)):
         height, width = int(height * 0.7), int(width * 0.7)
         
         img_rs = img.resize((width, height))
         
-    while (height < int(WINDOW_HEIGHT) or width < int(WINDOW_WIDTH)):
+    while (height < int(WINDOW_HEIGHT) and width < int(WINDOW_WIDTH)):
         height, width = int(height * 1.3), int(width * 1.3)
         
         img_rs = img.resize((width, height))
@@ -47,12 +47,12 @@ def setImage(imgPath: str):
     
     height, width = img.height, img.width
     
-    while (height > int(WINDOW_HEIGHT) or width > int(WINDOW_WIDTH)):
+    while (height > int(WINDOW_HEIGHT) and width > int(WINDOW_WIDTH)):
         height, width = int(height * 0.7), int(width * 0.7)
         
         img_rs = img.resize((width, height))
         
-    while (height < int(WINDOW_HEIGHT) or width < int(WINDOW_WIDTH)):
+    while (height < int(WINDOW_HEIGHT) and width < int(WINDOW_WIDTH)):
         height, width = int(height * 1.3), int(width * 1.3)
         
         img_rs = img.resize((width, height))

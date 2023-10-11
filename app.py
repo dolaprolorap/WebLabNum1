@@ -1,3 +1,4 @@
+import time
 import tkinter as tk
 import threading
 
@@ -8,17 +9,13 @@ from src.ui.ConnectPage import getConnectPage
 from src.ui.ImageViewerPage import setImage, getImageViewer
 import globals
 
+
 def but(root: tk.Tk):
     globals.PAGES["imageViewer"].tkraise()
     
     root.update()
     
-    setImage(f"{STATIC_PATH}/{globals.CURRENT_IMAGE}")
-    
-    if not globals.SERVER_RUNNING:
-        
-        t2 = threading.Thread(target=start_listener, daemon=True)
-        t2.start()
+    # setImage(f"{STATIC_PATH}/{globals.CURRENT_IMAGE}")
 
 globals.init()
 
@@ -52,5 +49,8 @@ globals.PAGES["connect"].tkraise()
 
 def start_app():
     root.mainloop()
+
+t = threading.Thread(target=start_listener, daemon=True)
+t.start()
 
 start_app()
