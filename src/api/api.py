@@ -21,7 +21,7 @@ def img_to_bytes(path: str):
 def bytes_to_img(file: str, name: str):
     
     try:
-        
+
         byte_arr = list(map(lambda x: int(x), file.split(",")))
         some_bytes = bytearray(byte_arr)
 
@@ -33,7 +33,7 @@ def bytes_to_img(file: str, name: str):
         f.close()
         
     except Exception as e:
-        return e
+        print(e)
     
     
     
@@ -50,7 +50,7 @@ def send(HOST: str, path: str = ""):
                 
             except:
                 data = "no_img"
-        
+
         req = httpx.post(f"http://{HOST}:{PORT}", data=data)
     
     except Exception as e:
