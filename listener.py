@@ -1,9 +1,10 @@
 import os
-from random import randint
 import socket
-import globals
+from random import randint
 
+import globals
 from config import PORT, STATIC_PATH
+from src.api.api import bytes_to_img
 from src.ui.ImageViewerPage import setImage
 
 
@@ -17,23 +18,34 @@ def start_listener():
         sock.listen(1)
         conn, addr = sock.accept()
 
+        req = []
+
         a = conn.recv(2**30)
         while a:
-            print(a)
+            req.append(a)
             a = conn.recv(2**30)
 
         conn.close()
-
         
+        body = ""
+        for x in req[1:]:
+            body += x.decode()
+
         images = os.listdir(STATIC_PATH)
         
-        print(len(images)-1)
-        
-        new_img_num = randint(0, len(images)-1)
-        
-        while (images[new_img_num] == globals.CURRENT_IMAGE):
-            new_img_num = randint(0, len(images))
-        
-        globals.CURRENT_IMAGE = images[new_img_num]
-        
+        if body != "no_img":
+            name = str(len(images))
+            bytes_to_img(body, name)
+            globals.CURRENT_IMAGE = name + ".jpg"
+            print(globals.CURRENT_IMAGE, name)
+            
+        else:
+            
+            new_img_num = randint(0, len(images)-2)
+            
+            while (images[new_img_num] == globals.CURRENT_IMAGE):
+                new_img_num = randint(0, len(images))
+            
+            globals.CURRENT_IMAGE = images[new_img_num]
+            
         setImage(f"{STATIC_PATH}/{globals.CURRENT_IMAGE}")
